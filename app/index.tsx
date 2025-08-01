@@ -1,15 +1,20 @@
-import { Text, View } from "react-native";
+import { Stack } from "expo-router";
+import { View } from "react-native";
+import Card from "./screens/Card";
+import Navbar from "./components/Navbar";
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <>
+      <Stack.Screen options={{ headerShown: false }} />
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        <Card />
+        {/* <Navbar /> */}
+      </View>
+    </>
   );
 }
