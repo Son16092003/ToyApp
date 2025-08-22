@@ -13,7 +13,7 @@ const SearchComponent = () => {
           placeholder="Tìm kiếm sản phẩm..."
           placeholderTextColor="#B9D6F3"
         />
-        <Icon name="filter-alt" size={24} color="#FFC107" style={styles.searchIcon} />
+        {/* <Icon name="filter-alt" size={24} color="#FFC107" style={styles.searchIcon} /> */}
       </View>
 
       {/* Avatar/logo */}

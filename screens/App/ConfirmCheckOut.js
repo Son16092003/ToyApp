@@ -21,7 +21,7 @@ const ConfirmCheckOut = ({ navigation }) => {
     phone: "",
     address: "",
   });
-
+  const userId = useSelector((state) => state.user.userId);
   const cartItems = useSelector((state) => state.cart.productList);
   const dispatch = useDispatch();
 
@@ -29,6 +29,36 @@ const ConfirmCheckOut = ({ navigation }) => {
     try {
       if (!form.name || !form.email || !form.phone || !form.address) {
         Alert.alert("Lỗi", "Vui lòng nhập đầy đủ thông tin trước khi đặt hàng");
+        return;
+      }
+
+      //Rule kiểm tra Họ và tên (chỉ chữ cái thường/hoa + khoảng trắng)
+      const nameRegex = /^[A-Za-zÀ-ỹ\s]+$/;
+      if (!form.name || !nameRegex.test(form.name)) {
+        Alert.alert("Lỗi", "Họ và tên chỉ được chứa chữ cái thường và hoa");
+        return;
+      }
+
+      //Rule kiểm tra Email (phải có đuôi @gmail.com)
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      if (!form.email || !emailRegex.test(form.email)) {
+        Alert.alert(
+          "Lỗi",
+          "Email phải có dạng hợp lệ và kết thúc bằng @gmail.com"
+        );
+        return;
+      }
+
+      // Rule kiểm tra SĐT (10 chữ số)
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!form.phone || !phoneRegex.test(form.phone)) {
+        Alert.alert("Lỗi", "Số điện thoại phải gồm 10 chữ số");
+        return;
+      }
+
+      // Rule kiểm tra địa chỉ (chỉ cần không rỗng)
+      if (!form.address.trim()) {
+        Alert.alert("Lỗi", "Vui lòng nhập địa chỉ");
         return;
       }
 
@@ -42,7 +72,7 @@ const ConfirmCheckOut = ({ navigation }) => {
         .from("orders")
         .insert([
           {
-            user_id: 1, // giả sử user_id là 1, sau này có thể lấy từ auth
+            user_id: 1,
             total_amount: totalAmount,
             status: "Success",
             order_date: new Date(),
@@ -59,6 +89,10 @@ const ConfirmCheckOut = ({ navigation }) => {
         product_id: item.id,
         quantity: item.quantity,
         price: item.price,
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        address: form.address,
       }));
 
       const { error: orderItemsError } = await supabase
@@ -184,12 +218,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 80,
   },
-  arrowBack: { fontSize: 25, color: "#fff", paddingLeft: "5%" },
+  arrowBack: { fontSize: 25, color: "#fff", paddingLeft: "3%" },
   title: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#fff",
-    marginLeft: "2%",
+    // marginLeft: "2%",
+    flex: 1,
+    textAlign: "center",
+    // backgroundColor: "black",
+    paddingRight: "3%",
   },
 
   // ✅ style tổng tiền
