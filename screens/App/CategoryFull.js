@@ -56,7 +56,6 @@ const CategoryFull = ({ navigation }) => {
           />
           <Text style={styles.headerTitle}>Danh mục sản phẩm</Text>
         </View>
-        <Search />
       </View>
 
       {/* Nội dung */}
@@ -192,7 +191,7 @@ export default CategoryFull;
 
 const styles = StyleSheet.create({
   wrapper: { flex: 1, backgroundColor: "#f9f9f9" },
-  header: { backgroundColor: "#FFC107", paddingBottom: 12 },
+  header: { backgroundColor: "#FFC107" },
   topHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -202,6 +201,9 @@ const styles = StyleSheet.create({
   },
   arrowBack: { fontSize: 28, color: "#fff", marginRight: 12 },
   headerTitle: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
     fontSize: 22,
     fontWeight: "bold",
     color: "#fff",

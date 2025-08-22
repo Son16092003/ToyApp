@@ -5,8 +5,8 @@ export const getToys = async () => {
   const { data, error } = await supabase.from('products').select('*');
   if (error) throw error;
   return data;
-  
-};  
+
+};
 
 // get toy by id
 export const getToyById = async (id) => {
@@ -32,3 +32,24 @@ export const fetchProductById = async (id) => {
   return data;
 };
 
+
+
+export const searchToys = async (keyword) => {
+  const trimmedKeyword = keyword.trim().toLowerCase();
+  if (!trimmedKeyword) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .or(`name.ilike.*${trimmedKeyword}*`)
+    .limit(8);
+
+  if (error) {
+    console.error('Error searching toys:', error);
+    throw error;
+  }
+  // console.log('searchToys results:', data);
+  return data;
+};

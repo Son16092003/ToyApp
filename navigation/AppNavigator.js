@@ -7,6 +7,7 @@ import DetailProduct from "../screens/App/DetailProduct";
 import Home from "../screens/App/Home";
 import CategoryFull from "../screens/App/CategoryFull";
 import SearchScrean from "../screens/App/SearchScrean";
+import SearchResults from "../screens/App/SearchResults";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="CategoryFull" component={CategoryFull} />
       <Stack.Screen name="SearchScrean" component={SearchScrean} />
+      <Stack.Screen name="ResultScreen" component={SearchResults} />
     </Stack.Navigator>
   );
 };
